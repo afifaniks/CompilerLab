@@ -31,8 +31,6 @@ public class LexicalAnalyzer {
 
     static char[] parentheses = {'[', '{', '(', '<', '>', ')', '}', ']'};
     static char[] operators = {'+', '-', '*', '/', '%'};
-//    static String[] dataTypes = {"int", "double", "float", "char"};
-
     static int[] operatorFlag = new int[operators.length];
     static int[] parenthFlag = new int[parentheses.length];
     static int[] keywordFlag;
@@ -69,8 +67,6 @@ public class LexicalAnalyzer {
                 res[ctr++] = token;
             }
         }
-
-
 
         return res;
     }
