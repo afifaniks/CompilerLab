@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+//int flag = 0, counter = 0;
+
+/* 
+
+string multiLine(string line, int pos) {
+    pos += 2;
+    flag = 0;
+    string comment = "";
+    while(line[pos] != '*' && line[pos + 1] != '/') {
+        comment += line[pos++];
+        flag++;
+    }
+    return comment;
+}
+
+int main() {
+    string x = "boom chjola // booooooooom ebvbn kjhsdkj skdjhfksdfh 763254hjsx\nfnmbvsdjh djhas\njshd\nksedjfsjdhg";
+    int len = x.length(), i = 0;
+
+    while (i < len) {
+        if (x[i] == '/' && x[i + 1] == '/') {
+            string comment = sameLine(x, i);
+            i += flag + 2;
+            
+            cout << "Comment " << ++counter << ":\n" << comment << "\n\n";
+        }
+
+  //      else if (x[i] == '/' && x[i + 1] == '*') {
+             string comment = multiLine(x, i);
+             i += flag + 2;
+             
+             cout << "Comment " << ++counter << ":\n" << comment << "\n\n";
+        }
+        else
+            i++;
+    }
+    
+}
