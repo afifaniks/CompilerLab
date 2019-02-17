@@ -3,9 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * @author Afif Al Mamun
- * @date 2/5/2019
- * @project_name LabWorks
+ * @author: Afif Al Mamun
+ * @created_in: 2/5/2019
+ * @project_name: LabWorks
  */
 
 public class LexicalAnalyzer {

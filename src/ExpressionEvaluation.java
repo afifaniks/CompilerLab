@@ -3,6 +3,11 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeMap;
 
+/**
+ * @author: Afif Al Mamun
+ * @created_in: 2/16/19
+ * @project_name: LabWorks
+ **/
 public class ExpressionEvaluation {
     /**
      * This field will contain operators '+', '-', '*', '/', '%'.
