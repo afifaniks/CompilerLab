@@ -76,7 +76,8 @@ public class ExpressionEvaluation {
         return 0.0; // Should never reach
     }
 
-    public static void main(String[] args) {
+    public static void expressionEvaluation() {
+
         System.out.print("Input expression: ");
 
         Scanner scanner = new Scanner(System.in);
@@ -130,7 +131,7 @@ public class ExpressionEvaluation {
                     if (precedenceOfStackTop < precedenceOfOperator) {
                         operator.push(k.charAt(0));
                     } else {
-                        while ((!operator.isEmpty()) && (precedenceOfStackTop > precedenceOfOperator)) {
+                        while ((!operator.isEmpty()) && (precedenceOfStackTop >= precedenceOfOperator)) {
                             double val1 = Double.valueOf(operand.pop());
                             double val2 = Double.valueOf(operand.pop());
 
@@ -158,6 +159,9 @@ public class ExpressionEvaluation {
         // Displaying result
         System.out.println("Result: " + operand.peek());
 
+    }
 
+    public static void main(String[] args) {
+        expressionEvaluation();
     }
 }
