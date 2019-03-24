@@ -173,7 +173,6 @@ public class LexicalAnalyzer {
                 }
             }
 
-
             // Print Results
             int i = 0;
 

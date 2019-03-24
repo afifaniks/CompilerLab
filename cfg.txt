@@ -1,0 +1,4 @@
+S=Bb|Cd
+B=aB|ε
+C=cC|+|ε
+F=dD|xX|h
