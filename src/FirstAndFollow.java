@@ -9,16 +9,18 @@ import java.util.*;
  **/
 
 public class FirstAndFollow {
-    static HashMap<Character, String[]> productions = new HashMap<>();
-    static HashMap<Character, String> first = new HashMap<>();
-    static Character currentStartSymbol;
+    static private LinkedHashMap<Character, String[]> productions = new LinkedHashMap<>();
+    static private LinkedHashMap<Character, String> first = new LinkedHashMap<>();
+    static private LinkedHashMap<Character, String> follow = new LinkedHashMap<>();
+    static private Character currentStartSymbol;
+    static private Character currentNonTerminal;
+    private static boolean startingNonTerminal = true;
 
     /**
      * Splits production input by '|'
      * @param in: input line
      */
     public static void splitProductions(String in) {
-
         char start = in.charAt(0);
         String[] products = new String[10];
         int index = 0;
@@ -87,6 +89,58 @@ public class FirstAndFollow {
         }
     }
 
+    public static void findFollow(char nonTerminal) {
+
+        if (startingNonTerminal) {
+            startingNonTerminal = false;
+
+            follow.put(currentNonTerminal, "$");
+        }
+
+        for (char c: productions.keySet()) {
+            // Getting productions
+            String[] prods = productions.get(c);
+
+            for (String s: prods) {
+                if (s == null)
+                    break;
+
+                for (int i = 0; i < s.length(); i++) {
+                    if (s.charAt(i) == nonTerminal && i < s.length() - 1) {
+                        if (isTerminal(s.charAt(i + 1))) {
+                            if (follow.containsKey(currentNonTerminal)) {
+                                String follows = follow.get(currentNonTerminal);
+                                follows += s.charAt(i + 1);
+                                follows += ' ';
+                                follow.put(currentNonTerminal, follows);
+                            } else {
+                                String follows = "";
+                                follows += s.charAt(i + 1);
+                                follows += ' ';
+                                follow.put(currentNonTerminal, follows);
+                            }
+                        } else {
+                            String firstOfNext = first.get(s.charAt(i + 1));
+                            // TODO Add case for epsilon
+
+                            if (follow.containsKey(currentNonTerminal)) {
+                                String follows = follow.get(currentNonTerminal);
+                                follows += firstOfNext;
+                                follows += ' ';
+                                follow.put(currentNonTerminal, follows);
+                            } else {
+                                String follows = "";
+                                follows += firstOfNext;
+                                follows += ' ';
+                                follow.put(currentNonTerminal, follows);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = null;
 
@@ -105,7 +159,15 @@ public class FirstAndFollow {
             findFirst(currentStartSymbol);
         }
 
+        // Finding follow
+        for (char c: productions.keySet()) {
+            currentNonTerminal = c;
+            findFollow(c);
+        }
+
         // Printing result
+        System.out.println("First");
+
         for (char start: first.keySet()) {
             String firstSym = first.get(start);
             HashSet<Character> firstSymbolSet = new HashSet<>();
@@ -114,13 +176,33 @@ public class FirstAndFollow {
             for (char c: firstSym.toCharArray()) {
                 if (c != ' ')
                     firstSymbolSet.add(c);
-
             }
 
             System.out.print(start + " -> ");
             for (char c: firstSymbolSet) {
                 System.out.print(c + " ");
             }
+
+            System.out.println("");
+        }
+
+        System.out.println("\nFollows");
+
+        for (char start: follow.keySet()) {
+            String followSym = follow.get(start);
+            HashSet<Character> followSymbolSet = new HashSet<>();
+
+            // Unique symbols
+            for (char c: followSym.toCharArray()) {
+                if (c != ' ')
+                    followSymbolSet.add(c);
+            }
+
+            System.out.print(start + " -> ");
+            for (char c: followSymbolSet) {
+                System.out.print(c + " ");
+            }
+
             System.out.println("");
         }
 
